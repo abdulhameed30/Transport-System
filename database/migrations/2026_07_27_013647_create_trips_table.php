@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('flight_number');
             $table->string('workers_count');
             $table->text('notes')->nullable();
-            $table->enum('status', ['Available', 'In_Progress', 'Completed'])->default('Available');
+            $table->enum('status', ['Available', 'In_Progress', 'Completed','Cancelled'])->default('Available');
             $table->string('odometer_image')->nullable();
             $table->dateTime('stage_1_time')->nullable();
             $table->dateTime('stage_2_time')->nullable();

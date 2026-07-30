@@ -1,4 +1,4 @@
-@extends('layouts.movement_officer_app') {{-- افتراض وجود تخطيط خاص بمسبؤول الحركة --}}
+@extends('layouts.movement_officer_app')
 
 
 @section('content')
@@ -13,7 +13,6 @@
 
     @forelse ($trips as $trip)
         @php 
-            // حساب مستوى التقدم اعتماداً على الأوقات المسجلة
             $level = 0;
             if ($trip->stage_4_time) $level = 4;
             elseif ($trip->stage_3_time) $level = 3;
@@ -79,7 +78,7 @@
                                         <div class="modal-body p-0">
                                             {{-- استخدام asset للوصول للصورة في التخزين العام لـ Laravel --}}
                                             {{-- <img src="{{ asset('upload/odometer_images/' . $trip->odometer_image) }}" class="img-fluid w-100"> --}}
-                                            <img src="{{ Storage::url('odometer_images/' . $trip->odometer_image) }}" alt="صورة العداد">
+                                            <img src="{{ asset('storage/odometer_images/' . $trip->odometer_image) }}" class="img-fluid w-100">
                                         </div>
                                     </div>
                                 </div>

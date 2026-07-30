@@ -78,7 +78,8 @@
                                     <div class="modal-content">
                                         <div class="modal-body p-0">
                                             {{-- استخدام asset للوصول للصورة في التخزين العام لـ Laravel --}}
-                                            <img src="{{ asset('upload/odometer_images/' . $trip->odometer_image) }}" class="img-fluid w-100">
+                                            {{-- <img src="{{ asset('upload/odometer_images/' . $trip->odometer_image) }}" class="img-fluid w-100"> --}}
+                                            <img src="{{ Storage::url('odometer_images/' . $trip->odometer_image) }}" alt="صورة العداد">
                                         </div>
                                     </div>
                                 </div>

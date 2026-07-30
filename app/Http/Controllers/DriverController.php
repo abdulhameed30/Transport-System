@@ -6,6 +6,7 @@ use App\Models\Trip;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DriverController extends Controller
 {
@@ -54,7 +55,11 @@ class DriverController extends Controller
         if ($request->hasFile('odometer_image')) {
             $file = $request->file('odometer_image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path("upload/odometer_images"), $fileName);
+            Storage::disk('public')->putFileAs(
+                'odometer_images',
+                $request->file('odometer_image'),
+                $fileName
+            );
 
             $trip->update([
                 'driver_id' => $driverId,
@@ -133,9 +138,18 @@ class DriverController extends Controller
                     $date = Carbon::createFromFormat('Y-m', $item->ym);
                     // تسمية الشهر بالعربية
                     $arMonths = [
-                        1 => 'يناير', 2 => 'فبراير', 3 => 'مارس', 4 => 'أبريل',
-                        5 => 'مايو', 6 => 'ييونيو', 7 => 'يوليو', 8 => 'أغسطس',
-                        9 => 'سبتمبر', 10 => 'أكتوبر', 11 => 'نوفمبر', 12 => 'ديسمبر'
+                        1 => 'يناير',
+                        2 => 'فبراير',
+                        3 => 'مارس',
+                        4 => 'أبريل',
+                        5 => 'مايو',
+                        6 => 'ييونيو',
+                        7 => 'يوليو',
+                        8 => 'أغسطس',
+                        9 => 'سبتمبر',
+                        10 => 'أكتوبر',
+                        11 => 'نوفمبر',
+                        12 => 'ديسمبر'
                     ];
                     $label = $arMonths[$date->month] . ' ' . $date->year;
 
@@ -153,7 +167,7 @@ class DriverController extends Controller
             if ($q !== '') {
                 $query->where(function ($subQuery) use ($q) {
                     $subQuery->where('flight_number', 'like', "%{$q}%")
-                             ->orWhere('destination', 'like', "%{$q}%");
+                        ->orWhere('destination', 'like', "%{$q}%");
                 });
             }
 
@@ -164,9 +178,18 @@ class DriverController extends Controller
 
             $date = Carbon::createFromFormat('Y-m', $month);
             $arMonths = [
-                1 => 'يناير', 2 => 'فبراير', 3 => 'مارس', 4 => 'أبريل',
-                5 => 'مايو', 6 => 'ييونيو', 7 => 'يوليو', 8 => 'أغسطس',
-                9 => 'سبتمبر', 10 => 'أكتوبر', 11 => 'نوفمبر', 12 => 'ديسمبر'
+                1 => 'يناير',
+                2 => 'فبراير',
+                3 => 'مارس',
+                4 => 'أبريل',
+                5 => 'مايو',
+                6 => 'ييونيو',
+                7 => 'يوليو',
+                8 => 'أغسطس',
+                9 => 'سبتمبر',
+                10 => 'أكتوبر',
+                11 => 'نوفمبر',
+                12 => 'ديسمبر'
             ];
             $monthLabel = $arMonths[$date->month] . ' ' . $date->year;
         }

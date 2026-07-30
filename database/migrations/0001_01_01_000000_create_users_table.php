@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role',['manager','Ticket_Officer', 'Driver', 'Movement_Officer']);
-            $table->int('city_id')->nullable();
+            $table->integer('city_id')->nullable();
              $table->timestamps();
         });
 
